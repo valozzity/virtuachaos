@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404" description="lost in the divide.">
+  <section class="container nf">
+    <h1 class="t-hero nf__code">404</h1>
+    <p class="t-subtitle nf__msg">lost in the divide.</p>
+    <a href="/" class="btn t-label nf__btn">back to chaos</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    text-align: center;
+    padding-block: clamp(64px, 12vw, 160px);
+  }
+  .nf__code {
+    color: var(--color-text-accent);
+  }
+  .nf__msg {
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-lg);
+  }
+  .nf__btn {
+    margin-top: var(--spacing-xl);
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateStr = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="container post">
+    <a href="/" class="t-nav post__back">&larr; back</a>
+
+    <header class="post__header">
+      <h1 class="t-title post__title">{post.data.title}</h1>
+      <p class="post__meta">{dateStr}</p>
+      {post.data.tags.length > 0 && (
+        <ul class="post__tags">
+          {post.data.tags.map((tag) => (
+            <li class="post__tag">{tag}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    <div class="surface post__body">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    padding-block: var(--spacing-xl);
+    max-width: 920px;
+  }
+  .post__back {
+    color: var(--color-text-accent);
+    display: inline-block;
+    margin-bottom: var(--spacing-lg);
+  }
+  .post__back:hover {
+    color: var(--color-text-highlight);
+  }
+  .post__title {
+    color: var(--color-text-highlight);
+    margin-bottom: var(--spacing-sm);
+  }
+  .post__meta {
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+  }
+  .post__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    list-style: none;
+    margin-top: var(--spacing-md);
+  }
+  .post__tag {
+    border: 2px solid var(--color-border-default);
+    color: var(--color-text-accent);
+    padding: 4px 12px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+  .post__body {
+    margin-top: var(--spacing-lg);
+    padding: clamp(24px, 5vw, 64px);
+  }
+
+  .prose {
+    color: var(--color-text-primary);
+    line-height: 1.65;
+    font-size: 18px;
+  }
+  .prose :global(h2) {
+    color: var(--color-text-highlight);
+    font-weight: 400;
+    font-size: 32px;
+    margin: var(--spacing-lg) 0 var(--spacing-sm);
+  }
+  .prose :global(p) {
+    margin-bottom: var(--spacing-md);
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 var(--spacing-md) var(--spacing-lg);
+  }
+  .prose :global(li) {
+    margin-bottom: var(--spacing-xs);
+  }
+  .prose :global(strong) {
+    color: var(--color-text-accent);
+  }
+  .prose :global(blockquote) {
+    border-left: var(--border-width) solid var(--color-border-default);
+    padding-left: var(--spacing-md);
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin: var(--spacing-md) 0;
+  }
+  .prose :global(code) {
+    background-color: rgba(0, 0, 0, 0.35);
+    color: var(--color-text-highlight);
+    padding: 2px 6px;
+    font-size: 0.9em;
+  }
+</style>

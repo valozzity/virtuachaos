@@ -1,0 +1,28 @@
+---
+const {
+  title = 'virtual chaos',
+  subtitle = 'embracing the divide between analog and digital.',
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <h1 class="t-hero hero__title">{title}</h1>
+    <p class="t-subtitle hero__subtitle">{subtitle}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 8vw, 120px);
+    text-align: center;
+  }
+  .hero__title {
+    color: var(--color-text-accent);
+    word-break: break-word;
+  }
+  .hero__subtitle {
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-lg);
+  }
+</style>

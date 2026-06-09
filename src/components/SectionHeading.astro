@@ -1,0 +1,15 @@
+---
+const { label } = Astro.props;
+---
+
+<div class="container">
+  <h2 class="t-section section-heading" id={label}>{label}</h2>
+</div>
+
+<style>
+  .section-heading {
+    color: var(--color-text-accent);
+    padding-block: var(--spacing-md);
+    word-break: break-word;
+  }
+</style>

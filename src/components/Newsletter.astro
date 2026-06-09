@@ -1,0 +1,59 @@
+---
+// Footer newsletter bar — mirrors the Figma "Newsletter Bar" component.
+---
+
+<footer class="footer">
+  <div class="container">
+    <form class="surface newsletter" name="newsletter" netlify>
+      <span class="t-title newsletter__label">join the newsletter</span>
+      <input
+        type="email"
+        name="email"
+        class="newsletter__input t-body"
+        placeholder="email@gmail.com"
+        required
+      />
+      <button type="submit" class="btn t-label">read more</button>
+    </form>
+
+    <div class="footer__brand t-logo">virtual chaos.xyz</div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(48px, 8vw, 100px);
+  }
+  .newsletter {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+  .newsletter__label {
+    color: var(--color-text-highlight);
+    white-space: nowrap;
+  }
+  .newsletter__input {
+    flex: 1;
+    min-width: 200px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-surface);
+    border: var(--border-width) solid var(--color-border-default);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+  }
+  .newsletter__input::placeholder {
+    color: var(--color-text-muted);
+  }
+  .newsletter__input:focus {
+    outline: none;
+    filter: brightness(1.1);
+  }
+  .footer__brand {
+    color: var(--color-text-accent);
+    margin-top: var(--spacing-2xl);
+    text-align: center;
+  }
+</style>

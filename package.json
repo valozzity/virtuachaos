@@ -1,0 +1,17 @@
+{
+  "name": "virtuachaos",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "virtual chaos — embracing the divide between analog and digital.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.7.0"
+  }
+}

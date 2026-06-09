@@ -1,0 +1,54 @@
+---
+const links = ['features', 'incoming', 'artists', 'selects', 'about'];
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <div class="nav__row">
+      <a href="/" class="t-logo nav__logo">virtual chaos.xyz</a>
+      <nav class="nav__links">
+        {links.map((label) => (
+          <a href={`#${label}`} class="t-nav nav__link">{label}</a>
+        ))}
+      </nav>
+    </div>
+    <div class="divider-line"></div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    padding-top: var(--spacing-md);
+    background-color: var(--color-bg-page);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .nav__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  .nav__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  .nav__logo,
+  .nav__link {
+    color: var(--color-text-accent);
+  }
+  .nav__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  .nav__link {
+    transition: color 0.15s ease;
+  }
+  .nav__link:hover {
+    color: var(--color-text-highlight);
+  }
+</style>

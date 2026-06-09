@@ -1,0 +1,200 @@
+/* ==========================================================================
+   virtual chaos — design tokens
+   Mirrors the Figma design system (file 0FwNhkP838xpbw1ZIoXdrW).
+   ========================================================================== */
+
+:root {
+  /* Primitives */
+  --green-accent: #0fa240;
+  --green-lime: #00ff55;
+  --green-border: #55bd78;
+  --green-deep: #0b7a30;
+  --grey-900: #0d0d0d;
+  --grey-700: #575757;
+  --grey-600: #5f5f5f;
+  --grey-400: #919191;
+  --grey-100: #f2f2f2;
+  --grey-50: #fafafa;
+  --white: #ffffff;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 64px;
+  --spacing-2xl: 100px;
+
+  /* Radius */
+  --radius-none: 0px;
+  --radius-md: 8px;
+  --radius-full: 999px;
+
+  /* Borders */
+  --border-width: 3px;
+
+  /* Semantic color — Dark (default) */
+  --color-bg-page: var(--grey-900);
+  --color-bg-surface: var(--grey-700);
+  --color-border-default: var(--green-border);
+  --color-text-primary: var(--white);
+  --color-text-muted: var(--grey-400);
+  --color-text-accent: var(--green-accent);
+  --color-text-highlight: var(--green-lime);
+  --color-divider: var(--grey-600);
+
+  /* Type */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Light mode — structured for later use */
+:root[data-theme='light'] {
+  --color-bg-page: var(--grey-100);
+  --color-bg-surface: var(--white);
+  --color-border-default: var(--green-border);
+  --color-text-primary: var(--grey-900);
+  --color-text-muted: var(--grey-600);
+  --color-text-accent: var(--green-deep);
+  --color-text-highlight: var(--green-deep);
+  --color-divider: var(--grey-400);
+}
+
+/* ==========================================================================
+   Reset / base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Type ramp (from Figma text styles)
+   ========================================================================== */
+
+.t-hero {
+  font-size: clamp(64px, 16vw, 240px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.t-section {
+  font-size: clamp(48px, 9vw, 150px);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.t-logo {
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: -0.06em;
+}
+
+.t-title {
+  font-size: clamp(36px, 4vw, 55px);
+  line-height: 1;
+}
+
+.t-nav {
+  font-size: 20px;
+  letter-spacing: 0.1em;
+}
+
+.t-subtitle {
+  font-size: clamp(18px, 2.2vw, 32px);
+  letter-spacing: 0.26em;
+}
+
+.t-body {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.t-label {
+  font-size: 22px;
+}
+
+/* ==========================================================================
+   Shared layout
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1512px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 80px);
+}
+
+.divider-line {
+  height: 4px;
+  width: 100%;
+  background-color: var(--color-divider);
+}
+
+/* ==========================================================================
+   Bordered "chrome block" surface — the core visual motif
+   ========================================================================== */
+
+.surface {
+  background-color: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border-default);
+  border-radius: var(--radius-none);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-bg-surface);
+  border: var(--border-width) solid var(--color-border-default);
+  color: var(--color-text-highlight);
+  font-size: var(--spacing-md);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.btn--icon {
+  padding: var(--spacing-xs);
+  width: 58px;
+  height: 58px;
+}
+
+.btn--icon svg {
+  width: 24px;
+  height: 24px;
+}

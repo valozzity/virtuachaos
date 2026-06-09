@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Card from '../components/Card.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featured = posts.filter((p) => p.data.featured);
+const incoming = posts.filter((p) => !p.data.featured);
+
+// fall back: if nothing flagged incoming, show everything as cards
+const cards = incoming.length ? incoming : posts;
+---
+
+<BaseLayout>
+  <Hero />
+
+  <SectionHeading label="featuring" />
+  <section class="container featuring">
+    {featured.map((post) => (
+      <a href={`/blog/${post.id}/`} class="tile">
+        <span class="tile__img" aria-hidden="true"></span>
+        <span class="surface tile__title">{post.data.title}</span>
+      </a>
+    ))}
+  </section>
+
+  <div class="container"><div class="divider-line"></div></div>
+
+  <SectionHeading label="incoming" />
+  <section class="cards">
+    {cards.map((post, i) => (
+      <Card
+        title={post.data.title}
+        description={post.data.description}
+        href={`/blog/${post.id}/`}
+        reverse={i % 2 === 1}
+      />
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .featuring {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-md) var(--spacing-xl);
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  .tile__img {
+    aspect-ratio: 1 / 1;
+    background:
+      radial-gradient(circle at 35% 30%, #9a9a9a 0%, #525252 40%, #181818 75%, #050505 100%);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+  }
+  .tile:hover .tile__img {
+    transform: translateY(-4px);
+  }
+  .tile__title {
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-text-highlight);
+    font-size: 22px;
+  }
+</style>
