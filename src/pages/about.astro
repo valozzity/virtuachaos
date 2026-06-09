@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<BaseLayout title="about" description="embracing the divide between analog and digital.">
+  <SectionHeading label="about" />
+
+  <section class="container about">
+    <div class="surface about__block">
+      <p class="t-body">
+        virtual chaos is a publication and studio orbiting the seam between the
+        analog and the digital — liquid chrome renders, tape hiss, CRT burn, and
+        the noise that survives the jump between the two.
+      </p>
+    </div>
+
+    <div class="surface about__block">
+      <p class="t-body">
+        it started as a moodboard and is being rebuilt as a publishing engine:
+        fast, themeable, and automatable. less friction between an idea and a
+        transmission. the imagery stays chaotic — the frame stays in order.
+      </p>
+    </div>
+
+    <div class="about__cta">
+      <a href="/blog" class="btn t-label">read the blog</a>
+      <a href="/artists" class="btn t-label">meet the artists</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-md) var(--spacing-2xl);
+    max-width: 920px;
+  }
+  .about__block {
+    padding: clamp(24px, 4vw, 48px);
+    color: var(--color-text-primary);
+  }
+  .about__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 17px;
+    margin-top: var(--spacing-sm);
+  }
+</style>

@@ -13,4 +13,24 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const artists = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/artists' }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    link: z.string().url().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+const selects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/selects' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    link: z.string().url(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { blog, artists, selects };

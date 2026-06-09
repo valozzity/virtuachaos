@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BaseLayout title="blog" description="all transmissions from virtual chaos.">
+  <SectionHeading label="blog" />
+
+  <section class="container archive">
+    {posts.map((post) => (
+      <a class="surface entry" href={`/blog/${post.id}/`}>
+        <div class="entry__head">
+          <span class="t-title entry__title">{post.data.title}</span>
+          <time class="entry__date t-nav">{fmt(post.data.pubDate)}</time>
+        </div>
+        <p class="entry__desc t-body">{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <ul class="entry__tags">
+            {post.data.tags.map((tag) => (
+              <li class="entry__tag">{tag}</li>
+            ))}
+          </ul>
+        )}
+      </a>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .archive {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-md) var(--spacing-2xl);
+    max-width: 1100px;
+  }
+  .entry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .entry:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+  }
+  .entry__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  .entry__title {
+    color: var(--color-text-highlight);
+  }
+  .entry__date {
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+  .entry__desc {
+    color: var(--color-text-primary);
+    font-weight: 400;
+  }
+  .entry__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    list-style: none;
+  }
+  .entry__tag {
+    border: 2px solid var(--color-border-default);
+    color: var(--color-text-accent);
+    padding: 4px 12px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+</style>

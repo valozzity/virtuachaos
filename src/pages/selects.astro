@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const selects = (await getCollection('selects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="selects" description="curated picks from virtual chaos.">
+  <SectionHeading label="selects" />
+
+  <section class="container selects">
+    {selects.map((item) => (
+      <a class="surface select" href={item.data.link} target="_blank" rel="noopener">
+        <span class="t-title select__title">{item.data.title}</span>
+        <span class="t-body select__desc">{item.data.description}</span>
+        <span class="select__arrow t-label">&rarr;</span>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .selects {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-md) var(--spacing-2xl);
+    max-width: 1100px;
+  }
+  .select {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'title arrow'
+      'desc arrow';
+    gap: var(--spacing-xs) var(--spacing-md);
+    align-items: center;
+    padding: var(--spacing-lg);
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .select:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+  }
+  .select__title {
+    grid-area: title;
+    color: var(--color-text-highlight);
+  }
+  .select__desc {
+    grid-area: desc;
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+  .select__arrow {
+    grid-area: arrow;
+    color: var(--color-text-accent);
+    font-size: 40px;
+  }
+</style>

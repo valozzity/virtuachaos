@@ -1,5 +1,10 @@
 ---
-const links = ['features', 'incoming', 'artists', 'selects', 'about'];
+const links = [
+  { label: 'blog', href: '/blog' },
+  { label: 'artists', href: '/artists' },
+  { label: 'selects', href: '/selects' },
+  { label: 'about', href: '/about' },
+];
 ---
 
 <header class="nav">
@@ -7,8 +12,8 @@ const links = ['features', 'incoming', 'artists', 'selects', 'about'];
     <div class="nav__row">
       <a href="/" class="t-logo nav__logo">virtual chaos.xyz</a>
       <nav class="nav__links">
-        {links.map((label) => (
-          <a href={`#${label}`} class="t-nav nav__link">{label}</a>
+        {links.map((link) => (
+          <a href={link.href} class="t-nav nav__link">{link.label}</a>
         ))}
       </nav>
     </div>

@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const artists = (await getCollection('artists')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout title="artists" description="the artists of virtual chaos.">
+  <SectionHeading label="artists" />
+
+  <section class="container artists">
+    {artists.map((artist) => (
+      <article class="artist">
+        <span class="artist__img" aria-hidden="true"></span>
+        <div class="surface artist__title">
+          <span class="t-title">{artist.data.name}</span>
+        </div>
+        <p class="artist__role t-nav">{artist.data.role}</p>
+        <p class="artist__bio">{artist.body}</p>
+        {artist.data.link && (
+          <a href={artist.data.link} class="btn t-label" target="_blank" rel="noopener">
+            view
+          </a>
+        )}
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .artists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    padding-block: var(--spacing-md) var(--spacing-2xl);
+  }
+  .artist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: flex-start;
+  }
+  .artist__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background:
+      radial-gradient(circle at 35% 30%, #9a9a9a 0%, #525252 40%, #181818 75%, #050505 100%);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  }
+  .artist__title {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-text-highlight);
+  }
+  .artist__role {
+    color: var(--color-text-accent);
+  }
+  .artist__bio {
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+</style>
